@@ -15,7 +15,7 @@ Mike wrote of a "Cadillac Approach" in referring to Rick Olson's code that makes
 
 This plugin is basically a rip-off of that blog post and Rick's code.  
 
-I refactored things a bit primarily because I needed the approach to work even if Rails wasn't installed on the server I was deploying to.
+I refactored things a bit primarily because I needed the approach to work even if Rails wasn't installed on the server I was deploying to.  I've also changed it since to work with git rather than svn.
 
 
 
@@ -25,7 +25,7 @@ Example
 
 To use the plugin, all you need to do is add the following to your deploy.rb:
 
-set :rails_revision, 6651
+set :rails_revision, '745359a49452da34978724144eaa318b8a363e08'
 
 
 When you'd like the server to start using a different revision of rails, just adjust the rails_revision variable in your deploy.rb.

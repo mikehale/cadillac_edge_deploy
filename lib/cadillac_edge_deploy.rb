@@ -4,32 +4,34 @@ class CadillacEdgeDeploy
   include FileUtils
   
   def deploy(rails_revision, release_path) 
-    shared_path  = File.join(release_path, '../../shared')
-    rails_path ||= File.join(shared_path, 'rails')
+    shared_path  = File.expand_path(File.join(release_path, '../../shared'))
+    @rails_path = File.join(shared_path, 'rails')
 
     @rails_revision = rails_revision
-    @checkout_path = File.join(rails_path, 'trunk')
-    @export_path = "#{rails_path}/rev_#{@rails_revision}"
+    @clone_path = File.join(@rails_path, 'master')
+    @export_name = "rev_#{@rails_revision}"
+    @export_path = File.join(@rails_path, @export_name)
 
-    checkout_trunk
-    export_revision
+    clone_rails
+    clone_revision
     link_export
   end
   
   
   private
-    def checkout_trunk
-      unless File.exists?(@checkout_path)
-        puts 'setting up rails trunk'    
-        system "svn co http://dev.rubyonrails.org/svn/rails/trunk #{@checkout_path} --quiet"
+    def clone_rails
+      unless File.exists?(@clone_path)
+        puts 'cloning rails master'    
+        system "git clone git://github.com/rails/rails.git #{@clone_path}"
       end
     end
     
-    def export_revision
+    def clone_revision
       unless File.exists?(@export_path)
         puts "setting up rails rev #{@rails_revision}"
-        system "svn up #{@checkout_path} -r #{@rails_revision} --quiet"
-        system "svn export #{@checkout_path} #{@export_path}"
+        system "cd #{@clone_path}; git pull"
+        system "cd #{@rails_path}; git clone -q master #{@export_name}"
+        system "cd #{@export_path}; git reset --hard #{@rails_revision}"
       end
     end
 
@@ -39,7 +41,7 @@ class CadillacEdgeDeploy
       rm_rf   symlink_path
 
       ln_s File.expand_path(@export_path), symlink_path
-      touch "vendor/rails_#{@rails_revision}"
+      touch "vendor/rails_revision_#{@rails_revision}"
     end
     
 end

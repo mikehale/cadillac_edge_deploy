@@ -1,3 +1,4 @@
+desc "Checkout specified rails revision and symlink to vendor/rails"
 task :cadillac_edge_deploy do
   require "#{RAILS_ROOT}/config/rails_revision"
   require "#{RAILS_ROOT}/vendor/plugins/cadillac_edge_deploy/lib/cadillac_edge_deploy"

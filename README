@@ -23,12 +23,12 @@ Example
 =======
 
 
-To use the plugin, all you need to do is add the following to your deploy.rb:
+To use the plugin, all you need to do is create config/rails_revision.rb like this:
 
-set :rails_revision, '745359a49452da34978724144eaa318b8a363e08'
+RAILS_REVISION = '745359a49452da34978724144eaa318b8a363e08'
 
 
-When you'd like the server to start using a different revision of rails, just adjust the rails_revision variable in your deploy.rb.
+When you'd like the server to start using a different revision of rails, just adjust the RAILS_REVISION variable in your rails_revision.rb.
 
 
 Copyright (c) 2007 Duff OMelia, released under the MIT license

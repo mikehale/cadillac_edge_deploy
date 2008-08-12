@@ -3,10 +3,10 @@ require 'fileutils'
 class CadillacEdgeDeploy
   include FileUtils
   
-  def deploy(rails_revision, release_path) 
+  def deploy(rails_revision, release_path)
     shared_path  = File.expand_path(File.join(release_path, '../../shared'))
-    @rails_path = File.join(shared_path, 'rails')
-
+    @rails_path = File.exists?(shared_path) ? File.join(shared_path, 'rails') : File.join(ENV['HOME'], 'rails')
+    
     @rails_revision = rails_revision
     @clone_path = File.join(@rails_path, 'master')
     @export_name = "rev_#{@rails_revision}"
@@ -41,7 +41,6 @@ class CadillacEdgeDeploy
       rm_rf   symlink_path
 
       ln_s File.expand_path(@export_path), symlink_path
-      touch "vendor/rails_revision_#{@rails_revision}"
     end
     
 end

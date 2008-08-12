@@ -1,9 +1,6 @@
 namespace :deploy do 
   task :cadillac_edge do
-    run <<-CMD
-      cd #{latest_release} &&
-      /usr/bin/env ruby vendor/plugins/cadillac_edge_deploy/lib/cadillac_edge_deploy.rb #{rails_revision} #{latest_release}
-    CMD
+    run "cd #{latest_release} && rake cadillac_edge_deploy"
   end
 end
 

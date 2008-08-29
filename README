@@ -22,13 +22,14 @@ I refactored things a bit primarily because I needed the approach to work even i
 Example
 =======
 
+To use the plugin, create config/rails_revision.rb like this:
 
-To use the plugin, all you need to do is create config/rails_revision.rb like this:
+  RAILS_REVISION = '745359a49452da34978724144eaa318b8a363e08'
 
-RAILS_REVISION = '745359a49452da34978724144eaa318b8a363e08'
+Lastly on your development environment run `rake cadillac_edge_deploy`, which will create $HOME/rails/rev_745359a49452da34978724144eaa318b8a363e08.
+That's it. When deploying with capistrano cadillac_edge_deploy will be run automatically for you on the target machine.
 
-
-When you'd like the server to start using a different revision of rails, just adjust the RAILS_REVISION variable in your rails_revision.rb.
+When you'd like the server to start using a different revision of rails, just adjust the RAILS_REVISION variable in your rails_revision.rb and deploy again.
 
 
 Copyright (c) 2007 Duff OMelia, released under the MIT license
